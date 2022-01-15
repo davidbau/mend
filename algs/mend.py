@@ -170,14 +170,15 @@ class MEND(EditableModel):
 
         res = super().load_state_dict(state_dict, False)
         # We should only have missing keys for the model, and no unexpected keys
-        assert len([k for k in res.missing_keys if not k.startswith("model.")]) == 0, "Should only have missing keys for model."
+        assert len([k for k in res.missing_keys if not k.startswith("model.")]) == 0, "Should only have missing keys for model, got " + str([
+            k for k in res.missing_keys if not k.startswith('model.')])
         assert len(res.unexpected_keys) == 0, "Shouldn't have any unexpected keys"
         return res
 
     def outer_parameters(self):
         return list(self.mend.parameters()) + [self.edit_lrs]
 
-    def edit(self, batch, condition=None, detach_history=False):
+    def edit(self, batch, condition=None, detach_history=False, return_factors=False):
         outputs = _logits(self.model(**batch))
         loss = self.edit_loss_fn(outputs, batch["labels"])["nll"]
 
@@ -211,6 +212,8 @@ class MEND(EditableModel):
         }
 
         info_dict = {}
+        if return_factors:
+            info_dict['factors'] = transformed_factors
         idx = 0
         for n, p in _inner_params(self.model.named_parameters(), self.config.model.inner_params):
             info_dict[f"grad/true_mag{idx}"] = p.grad.norm(2).item()
