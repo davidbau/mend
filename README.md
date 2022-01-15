@@ -1,5 +1,7 @@
 # MEND: Model Editing Networks using Gradient Decomposition
 
+If you run into any issues with the code, you can open an issue and/or email me at `eric.mitchell@cs.stanford.edu`
+
 ## Setup
 
 ### Environment
@@ -23,7 +25,7 @@ Unzip each sub-directory into `mend/data` and you should be good to go.
 
 Run MEND training/evaluation for distilGPT-2 on the wikitext editing problem with:
 
-    (env) $ python -m run +alg=mend +experiment=gen +model=distilgpt2
+    (env) $ python -m run +alg=mend +experiment=gen +model=distilgpt2 data.wiki_webtext=False
 
 Other valid algs include `efk` ([KnowledgeEditor](https://arxiv.org/abs/2104.08164))
 and `enn` ([Editable Neural Networks](https://arxiv.org/abs/2004.00345)). Valid experiments
@@ -45,6 +47,8 @@ If this code or paper was useful, please consider using the following citation:
 
     @article{mitchell2021fast,
         title={Fast Model Editing at Scale},
-        author={Mitchell, Eric and Lin, Charles and Bosselut, Antoine and Finn, Chelsea and Manning, Chris}
-        year={2021}
-    }
+        author={Mitchell, Eric and Lin, Charles and Bosselut, Antoine and Finn, Chelsea and Manning, Christopher D.},
+        year={2021},
+        journal={CoRR},
+        url={https://arxiv.org/pdf/2110.11309.pdf}
+    }      
