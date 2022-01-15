@@ -26,8 +26,10 @@ def shift_targets(config):
 def scr():
     if os.path.exists("/scr-ssd"):
         scr_dir = "/scr-ssd/" + getpass.getuser()
-    else:
+    elif os.path.exists("/scr"):
         scr_dir = "/scr/" + getpass.getuser()
+    else:
+        scr_dir = "/tmp/scr-" + getpass.getuser()
 
     if not os.path.exists(scr_dir):
         os.makedirs(scr_dir)
