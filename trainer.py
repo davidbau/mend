@@ -77,7 +77,8 @@ class BaseTrainer:
             LOG.info(f"Writing wandb run \"{wandb_name}\" to {wandb_dir}")
             wandb.init(
                 project="efk",
-                entity="patchable-lm",
+                #entity="patchable-lm",
+                #entity="davidbau",
                 config=utils.flatten_dict(self.config),
                 name=wandb_name,
                 dir=wandb_dir,
